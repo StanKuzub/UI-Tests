@@ -19,7 +19,7 @@ class ContentPage extends BasePage {
         return cy.get('#submitButton');
     }
 
-    getSResultField() {
+    getResultField() {
         return cy.get('#captchaControl');
     }
 

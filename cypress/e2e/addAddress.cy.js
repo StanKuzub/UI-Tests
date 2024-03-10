@@ -1,19 +1,35 @@
-import address from '../fixtures/address.json'
-import user from '../fixtures/userInfo.json'
-
+import address from '../fixtures/address.json';
+import registerUser from '../support/helper.js';
+import { faker } from '@faker-js/faker'
 import loginPage from "../support/pages/LoginPage";
 import homePage from "../support/pages/HomePage";
 import addressCreatePage from '../support/pages/AddressCreatePage';
 import AddressSavePage from '../support/pages/AddressSavePage';
 
-describe('Add a new address', () => {
-  beforeEach(() => {
+let userInfo = {};
+describe('User Registration', () => {
+  it('Register a new user', () => {
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+    const securityAnswer = 'test';
+
+    registerUser(email, password, securityAnswer);
+    
+    userInfo = {
+      email: email,
+      password: password
+  }
+})
+
+  it('Login and add a new address', () => {
+
     loginPage.visit();
     homePage.getDismissButton().click();
-    loginPage.fillLoginFields(user.email, user.password);
-  });
+    
+    const { email, password } = userInfo;
 
-  it('Add a new address', () => {
+    loginPage.fillLoginFields(email, password);
+    homePage.getCartIcon().should('be.visible');
 
     homePage.getAccountButton().click();
     homePage.getOrdersAndPaymentsOption().click();

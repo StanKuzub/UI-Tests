@@ -1,17 +1,33 @@
-import user from '../fixtures/userInfo.json'
 import card from '../fixtures/creditCardInfo.json'
-import loginPage from "../support/pages/LoginPage";
-import homePage from "../support/pages/HomePage";
-import savedPaymentMethodsPage from '../support/pages/SavedPaymentMethodsPage';
+import loginPage from "../support/pages/LoginPage.js";
+import homePage from "../support/pages/HomePage.js";
+import savedPaymentMethodsPage from '../support/pages/SavedPaymentMethodsPage.js';
+import registerUser from '../support/helper.js';
+import { faker } from '@faker-js/faker'
 
+let userInfo = {};
 describe('Add a new credit card', () => {
-  beforeEach(() => {
-    loginPage.visit();
-    homePage.getDismissButton().click();
-    loginPage.fillLoginFields(user.email, user.password);
-  });
+  it('Register a new user', () => {
+      const email = faker.internet.email();
+      const password = faker.internet.password();
+      const securityAnswer = 'test';
 
-  it('Add a new credit card', () => {
+      registerUser(email, password, securityAnswer);
+
+      userInfo = {
+          email: email,
+          password: password
+      }
+  })
+
+  it('Login and Add a new credit card', () => {
+      loginPage.visit();
+      homePage.getDismissButton().click();
+
+      const { email, password } = userInfo;
+
+      loginPage.fillLoginFields(email, password);
+      homePage.getCartIcon().should('be.visible');
 
     homePage.getAccountButton().click();
     homePage.getOrdersAndPaymentsOption().click();

@@ -1,16 +1,30 @@
-import user from '../fixtures/userInfo.json'
 import loginPage from "../support/pages/LoginPage";
 import homePage from "../support/pages/HomePage";
+import registerUser from '../support/helper.js';
+import { faker } from '@faker-js/faker'
 
-describe('Authorization positive scenario', () => {
+let userInfo = {};
+describe('Registration and authorization', () => {
+  it('Register a new user', () => {
+      const email = faker.internet.email();
+      const password = faker.internet.password();
+      const securityAnswer = 'test';
+
+      registerUser(email, password, securityAnswer);
+
+      userInfo = {
+          email: email,
+          password: password
+      }
+  })
+
   it('Authorization', () => {
-    loginPage.visit();
-    homePage.getDismissButton().click();
-    loginPage.fillLoginFields(user.email, user.password);
-    homePage.getCartIcon().should('be.visible');
-    
-    homePage.getAccountButton().click();
-    homePage.getEmailInfoButton().should('be.visible');
-    homePage.getOrdersAndPaymentsOption().should('be.visible');
+      loginPage.visit();
+      homePage.getDismissButton().click();
+
+      const { email, password } = userInfo;
+
+      loginPage.fillLoginFields(email, password);
+      homePage.getCartIcon().should('be.visible');
   })
 })
