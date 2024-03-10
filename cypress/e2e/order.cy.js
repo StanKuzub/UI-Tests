@@ -9,7 +9,6 @@ import savedPaymentMethodsPage from "../support/pages/SavedPaymentMethodsPage.js
 import paymentShopPage from "../support/pages/PaymentShopPage.js";
 import deliveryMethodPage from "../support/pages/DeliveryMethodPage";
 import orderSummaryPage from "../support/pages/OrderSummaryPage";
-import { findProduct } from "../support/helper";
 import { faker } from '@faker-js/faker';
 import registerUser from '../support/helper.js';
 import address from '../fixtures/address.json';

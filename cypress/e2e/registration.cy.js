@@ -1,5 +1,4 @@
 import user from '../fixtures/userInfo.json'
-import loginPage from "../support/pages/LoginPage";
 import homePage from "../support/pages/HomePage";
 import registrationPage from "../support/pages/RegisterPage";
 import { faker } from '@faker-js/faker'

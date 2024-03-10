@@ -1,4 +1,3 @@
-import user from '../fixtures/userInfo.json';
 import loginPage from "../support/pages/LoginPage";
 import homePage from "../support/pages/HomePage";
 import basketPage from "../support/pages/BasketPage";
